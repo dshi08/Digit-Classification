@@ -4,6 +4,7 @@ from PIL import Image
 import numpy as np
 from pytorch_model import PyTorchMLP
 from MLP import MLP
+from Value import Value
 from vanilla_model import *
 import pickle
 import os

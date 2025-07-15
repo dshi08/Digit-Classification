@@ -1,4 +1,4 @@
-from value import Value
+from Value import Value
 
 # using cross entropy loss for cost function
 def softmax(logits):
