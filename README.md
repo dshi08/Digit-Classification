@@ -1,4 +1,5 @@
 # About This Repository
+![alt text](image.png)
 
 **This was made to further build an intuition of what neural networks are.**
 
@@ -15,6 +16,8 @@
     - Used to compare with MLP from scratch
 
 # Digit Classification Streamlit App
+
+![alt text](image-1.png)
 
 **This is a web app that allows you to test the models for yourself. You can upload an image of a digit, and the app will predict it using either model.**
 
@@ -46,7 +49,9 @@ streamlit run streamlit_app.py
 ### 4. Test models
 To test, download any `.png, .jpg, .jpeg` image from a MNIST dataset
 
-# To access Jupyter Notebooks
+# To access Jupyter Notebook
+
+![alt text](image-2.png)
 
 ### Prerequisites
 - Python 3.8 or higher
