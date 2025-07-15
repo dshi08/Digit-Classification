@@ -1,4 +1,4 @@
-from Value import Value
+from value import Value
 import random
 
 class Module:
