@@ -57,7 +57,9 @@ if uploaded_file is not None:
         pred = max(range(len(y_pred)), key=lambda i: y_pred[i].data)
         st.write(f'Predicted digit (Vanilla model): **{pred}**')
 
-
+import os
+st.write("Current directory:", os.getcwd())
+st.write("Contents of models/:", os.listdir("models"))
 
 
 
