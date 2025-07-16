@@ -6,7 +6,7 @@
 ## This repo contains 2 models trained on the a MNIST dataset
 
 ### 1. Vanilla Model(**71% acc**)
-    - This model used Python Classes inspired by [Karpathy’s Micrograd](https://github.com/karpathy/micrograd)
+    - This model used Python Classes inspired by ![Karpathy’s Micrograd](https://github.com/karpathy/micrograd)
     - Does not use PyTorch, TensorFlow, or numpy. Every part of building the model was manually coded from the forward pass to activations to parameter updates.
     - Trained off a small subset of MNIST dataset(1000 images). Without numpy vectorization and optimized nature of libraries like PyTorch, model took extremely long to train.
 
@@ -60,7 +60,7 @@ To test, download any `.png, .jpg, .jpeg` image from a MNIST dataset
 
 Ensure that git is installed
 ```bash
-git clone https://github.com/yourusername/digit-classification.git
+git clone https://github.com/dshi08/digit-classification.git
 cd digit-classification
 ```
 
