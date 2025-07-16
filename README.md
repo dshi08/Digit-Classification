@@ -30,7 +30,7 @@
 
 Ensure that git is installed
 ```bash
-git clone https://github.com/yourusername/digit-classification.git
+git clone https://github.com/dshi08/Digit-Classification.git
 cd digit-classification
 ```
 
