@@ -27,7 +27,7 @@ def get_model_path(filename):
     raise FileNotFoundError(f"Could not find {filename} in any search location")
 
 # Usage:
-TORCH_MODEL_PATH = get_model_path("torch_model.pth")
+TORCH_MODEL_PATH = get_model_path("pytorch_model.pth")
 MICROGRAD_MODEL_PATH = get_model_path("micrograd_model.pkl")
 
 # loading PyTorch model
