@@ -9,25 +9,49 @@ from vanilla_model import *
 import pickle
 import os
 
-import os
+# Debugging - Show exact file structure
+st.write("## Debugging Information")
+st.write("Current directory:", os.getcwd())
+st.write("Directory contents:", os.listdir())
 
-# Use this path logic that works both locally and in deployment
+# Check if models directory exists
+models_path = os.path.join(os.getcwd(), "models")
+st.write("Models path:", models_path)
+if os.path.exists(models_path):
+    st.write("Models directory contents:", os.listdir(models_path))
+else:
+    st.error("Models directory NOT FOUND")
+
+# Stop execution if we can't find models
+if not os.path.exists(models_path):
+    st.stop()
+
 def get_model_path(filename):
-    """Search for models in these locations in order:"""
-    search_paths = [
-        os.path.join(os.path.dirname(__file__), "models", filename),  # Local dev
-        os.path.join("/mount/src/digit-classification", "models", filename),  # Streamlit
-        os.path.join("models", filename)  # Last resort
+    """Search for models in all possible locations"""
+    possible_locations = [
+        # For Streamlit Sharing
+        "/mount/src/digit-classification/models/" + filename,
+        "/mount/src/digit-classification/digit-classification/models/" + filename,
+        
+        # For local development
+        os.path.join(os.path.dirname(__file__), "models", filename),
+        os.path.join("models", filename),
+        
+        # Last resort - current directory
+        filename
     ]
     
-    for path in search_paths:
+    for path in possible_locations:
         if os.path.exists(path):
+            st.success(f"Found model at: {path}")
             return path
     
-    raise FileNotFoundError(f"Could not find {filename} in any search location")
+    st.error(f"Model {filename} not found in any location!")
+    st.write("Searched in:", possible_locations)
+    st.stop()
 
-# Usage:
-TORCH_MODEL_PATH = get_model_path("pytorch_model.pth")
+# Usage
+TORCH_MODEL_PATH = get_model_path("pytorch_model.pth") 
 MICROGRAD_MODEL_PATH = get_model_path("micrograd_model.pkl")
 
 # loading PyTorch model
