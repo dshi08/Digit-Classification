@@ -10,16 +10,8 @@ import pickle
 import os
 
 def get_model_path(filename):
-    """Always finds models in nested directory structure"""
     base_path = "/mount/src/digit-classification/digit-classification"
     model_path = os.path.join(base_path, "models", filename)
-    
-    if not os.path.exists(model_path):
-        st.error(f"Model not found at: {model_path}")
-        st.write("Current directory contents:", os.listdir(base_path))
-        if os.path.exists(os.path.join(base_path, "models")):
-            st.write("Models directory contents:", os.listdir(os.path.join(base_path, "models")))
-        st.stop()
     return model_path
 
 # Usage (MUST match exact filenames)
