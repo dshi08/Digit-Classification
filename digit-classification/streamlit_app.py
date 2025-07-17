@@ -11,7 +11,7 @@ import os
 
 # loading PyTorch model
 pytorch_model = PyTorchMLP(784, [64, 32, 10])
-pytorch_model.load_state_dict(torch.load('models/pytorch_model.pth', map_location=torch.device('cpu')))
+pytorch_model.load_state_dict(torch.load('/Users/david/Documents/GitHub/Digit-Classification/digit-classification/pytorch_model.py', map_location=torch.device('cpu')))
 pytorch_model.eval()
 
 # loading vanilla model
