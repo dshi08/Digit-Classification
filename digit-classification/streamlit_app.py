@@ -9,14 +9,18 @@ from vanilla_model import *
 import pickle
 import os
 
+MODEL_DIR = os.path.join(os.path.dirname(__file__), "models")
+TORCH_MODEL_PATH = os.path.join(MODEL_DIR, "pytorch_model.pth")
+MICROGRAD_MODEL_PATH = os.path.join(MODEL_DIR, "micrograd_model.pkl")
+
 # loading PyTorch model
 pytorch_model = PyTorchMLP(784, [64, 32, 10])
-pytorch_model.load_state_dict(torch.load('models/torch_model.pth', map_location=torch.device('cpu')))
+pytorch_model.load_state_dict(torch.load(TORCH_MODEL_PATH, map_location=torch.device('cpu')))
 pytorch_model.eval()
 
 # loading vanilla model
 vanilla_model = MLP(196, [64, 32, 10])
-with open('models/micrograd_model.pkl', 'rb') as f:
+with open(MICROGRAD_MODEL_PATH, 'rb') as f:
     saved_params = pickle.load(f)
 for p, val in zip(vanilla_model.parameters(), saved_params):
     p.data = val
