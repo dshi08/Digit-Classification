@@ -23,7 +23,7 @@ def get_model_path(filename):
     return model_path
 
 # Usage (MUST match exact filenames)
-TORCH_MODEL_PATH = get_model_path("pytorch_model.pth") 
+TORCH_MODEL_PATH = get_model_path("py_torch_model.pth") 
 MICROGRAD_MODEL_PATH = get_model_path("micrograd_model.pkl")
 
 # loading PyTorch model
