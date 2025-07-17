@@ -9,29 +9,22 @@ from vanilla_model import *
 import pickle
 import os
 
-# --- Debugging: Print current directory structure ---
-st.write("Current working directory:", os.getcwd())
-st.write("Directory contents:", os.listdir())
-if os.path.exists("models"):
-    st.write("Models directory contents:", os.listdir("models"))
-else:
-    st.error("Models directory does not exist!")
-
-# --- Dynamic Path Resolution ---
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Correct base directory (one level up)
+BASE_DIR = "/mount/src/digit-classification"
 MODEL_DIR = os.path.join(BASE_DIR, "models")
-TORCH_MODEL_PATH = os.path.join(MODEL_DIR, "pytorch_model.pth")
+
+# Update model filenames to match what you actually have
+TORCH_MODEL_PATH = os.path.join(MODEL_DIR, "pytorch_model.pth") 
 MICROGRAD_MODEL_PATH = os.path.join(MODEL_DIR, "micrograd_model.pkl")
 
-st.write("Resolved paths:")
-st.write("- Torch model path:", TORCH_MODEL_PATH)
-st.write("- Micrograd model path:", MICROGRAD_MODEL_PATH)
+# Debugging output
+st.write(f"Looking for PyTorch model at: {TORCH_MODEL_PATH}")
+st.write(f"Looking for Micrograd model at: {MICROGRAD_MODEL_PATH}")
 
-# --- Verify paths exist ---
+# Verify files exist
 if not os.path.exists(TORCH_MODEL_PATH):
     st.error(f"Torch model not found at: {TORCH_MODEL_PATH}")
-if not os.path.exists(MICROGRAD_MODEL_PATH):
-    st.error(f"Micrograd model not found at: {MICROGRAD_MODEL_PATH}")
+    st.write("Available files:", os.listdir(MODEL_DIR))  # Show what's actually there
 
 # loading PyTorch model
 pytorch_model = PyTorchMLP(784, [64, 32, 10])
