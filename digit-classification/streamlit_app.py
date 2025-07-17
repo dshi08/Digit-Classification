@@ -9,22 +9,26 @@ from vanilla_model import *
 import pickle
 import os
 
-# Correct base directory (one level up)
-BASE_DIR = "/mount/src/digit-classification"
-MODEL_DIR = os.path.join(BASE_DIR, "models")
+import os
 
-# Update model filenames to match what you actually have
-TORCH_MODEL_PATH = os.path.join(MODEL_DIR, "pytorch_model.pth") 
-MICROGRAD_MODEL_PATH = os.path.join(MODEL_DIR, "micrograd_model.pkl")
+# Use this path logic that works both locally and in deployment
+def get_model_path(filename):
+    """Search for models in these locations in order:"""
+    search_paths = [
+        os.path.join(os.path.dirname(__file__), "models", filename),  # Local dev
+        os.path.join("/mount/src/digit-classification", "models", filename),  # Streamlit
+        os.path.join("models", filename)  # Last resort
+    ]
+    
+    for path in search_paths:
+        if os.path.exists(path):
+            return path
+    
+    raise FileNotFoundError(f"Could not find {filename} in any search location")
 
-# Debugging output
-st.write(f"Looking for PyTorch model at: {TORCH_MODEL_PATH}")
-st.write(f"Looking for Micrograd model at: {MICROGRAD_MODEL_PATH}")
-
-# Verify files exist
-if not os.path.exists(TORCH_MODEL_PATH):
-    st.error(f"Torch model not found at: {TORCH_MODEL_PATH}")
-    st.write("Available files:", os.listdir(MODEL_DIR))  # Show what's actually there
+# Usage:
+TORCH_MODEL_PATH = get_model_path("torch_model.pth")
+MICROGRAD_MODEL_PATH = get_model_path("micrograd_model.pkl")
 
 # loading PyTorch model
 pytorch_model = PyTorchMLP(784, [64, 32, 10])
