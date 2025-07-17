@@ -9,48 +9,20 @@ from vanilla_model import *
 import pickle
 import os
 
-# Debugging - Show exact file structure
-st.write("## Debugging Information")
-st.write("Current directory:", os.getcwd())
-st.write("Directory contents:", os.listdir())
-
-# Check if models directory exists
-models_path = os.path.join(os.getcwd(), "models")
-st.write("Models path:", models_path)
-if os.path.exists(models_path):
-    st.write("Models directory contents:", os.listdir(models_path))
-else:
-    st.error("Models directory NOT FOUND")
-
-# Stop execution if we can't find models
-if not os.path.exists(models_path):
-    st.stop()
-
 def get_model_path(filename):
-    """Search for models in all possible locations"""
-    possible_locations = [
-        # For Streamlit Sharing
-        "/mount/src/digit-classification/models/" + filename,
-        "/mount/src/digit-classification/digit-classification/models/" + filename,
-        
-        # For local development
-        os.path.join(os.path.dirname(__file__), "models", filename),
-        os.path.join("models", filename),
-        
-        # Last resort - current directory
-        filename
-    ]
+    """Always finds models in nested directory structure"""
+    base_path = "/mount/src/digit-classification/digit-classification"
+    model_path = os.path.join(base_path, "models", filename)
     
-    for path in possible_locations:
-        if os.path.exists(path):
-            st.success(f"Found model at: {path}")
-            return path
-    
-    st.error(f"Model {filename} not found in any location!")
-    st.write("Searched in:", possible_locations)
-    st.stop()
+    if not os.path.exists(model_path):
+        st.error(f"Model not found at: {model_path}")
+        st.write("Current directory contents:", os.listdir(base_path))
+        if os.path.exists(os.path.join(base_path, "models")):
+            st.write("Models directory contents:", os.listdir(os.path.join(base_path, "models")))
+        st.stop()
+    return model_path
 
-# Usage
+# Usage (MUST match exact filenames)
 TORCH_MODEL_PATH = get_model_path("pytorch_model.pth") 
 MICROGRAD_MODEL_PATH = get_model_path("micrograd_model.pkl")
 
